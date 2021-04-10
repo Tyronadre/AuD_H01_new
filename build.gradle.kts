@@ -12,15 +12,25 @@ val lastName: String by extra("_not_set_")
 // Richtig z.B. ab12cdef
 // Falsch z.B. 1234567
 
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  // JUnit only available in "test" source set (./src/test)
+  testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+}
+
 tasks {
   create<Jar>("prepareSubmission") {
+    dependsOn(test)
     doFirst {
       if (studentId == "_not_set_" || firstName == "_not_set_" || lastName == "_not_set_") {
         throw GradleException("studentId or firstName or lastName not set!")
       }
     }
     // include source files in output jar
-    from(sourceSets.main.get().allSource)
+    from(sourceSets.main.get().allSource, sourceSets.test.get().allSource)
     // replace placeholders in resource directory
     // e.g. the submission-info.json file
     filesMatching("submission-info.json") {
@@ -28,5 +38,8 @@ tasks {
     }
     // set the name of the output jar
     archiveFileName.set("$assignmentId-$lastName-$firstName-submission.jar")
+  }
+  test {
+    useJUnitPlatform()
   }
 }
