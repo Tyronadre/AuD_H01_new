@@ -3,9 +3,14 @@ plugins {
 }
 
 val assignmentId: String by extra("H01")
-val studentId: String by extra("_not_set_") // TU-ID
+val studentId: String by extra("_not_set_") // TU-ID  z.B. ab12cdef
 val firstName: String by extra("_not_set_")
 val lastName: String by extra("_not_set_")
+
+// !! Achtung !!
+// Die studentId (TU-ID) ist keine Matrikelnummer
+// Richtig z.B. ab12cdef
+// Falsch z.B. 1234567
 
 tasks {
   create<Jar>("prepareSubmission") {
