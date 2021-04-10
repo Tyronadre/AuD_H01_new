@@ -3,14 +3,15 @@ plugins {
 }
 
 val assignmentId: String by extra("H01")
+val studentId: String by extra("_not_set_") // TU-ID
 val firstName: String by extra("_not_set_")
 val lastName: String by extra("_not_set_")
 
 tasks {
   create<Jar>("prepareSubmission") {
     doFirst {
-      if (firstName == "_not_set_" || lastName == "_not_set_") {
-        throw GradleException("firstName or lastName not set!")
+      if (studentId == "_not_set_" || firstName == "_not_set_" || lastName == "_not_set_") {
+        throw GradleException("studentId or firstName or lastName not set!")
       }
     }
     // include source files in output jar
