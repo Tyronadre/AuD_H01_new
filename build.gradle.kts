@@ -21,6 +21,11 @@ dependencies {
   testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
 }
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
 tasks {
   create<Jar>("prepareSubmission") {
     dependsOn(test)
